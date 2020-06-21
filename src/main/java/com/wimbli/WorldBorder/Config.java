@@ -511,14 +511,14 @@ public class Config {
         int cfgVersion = cfg.getInt("cfg-version", currentCfgVersion);
 
         String msg = cfg.getString("message");
-        shapeRound = cfg.getBoolean("round-border", true);
+        shapeRound = cfg.getBoolean("round-border", false);
         DEBUG = cfg.getBoolean("debug-mode", false);
         whooshEffect = cfg.getBoolean("whoosh-effect", true);
         portalRedirection = cfg.getBoolean("portal-redirection", true);
         knockBack = cfg.getDouble("knock-back-dist", 3.0);
         timerTicks = cfg.getInt("timer-delay-ticks", 5);
         remountDelayTicks = cfg.getInt("remount-delay-ticks", 0);
-        dynmapEnable = cfg.getBoolean("dynmap-border-enabled", true);
+        dynmapEnable = cfg.getBoolean("dynmap-border-enabled", false);
         dynmapMessage = cfg.getString("dynmap-border-message", "The border of the world.");
         dynmapHideByDefault = cfg.getBoolean("dynmap-border-hideByDefault", false);
         dynmapPriority = cfg.getInt("dynmap-border-priority", 0);
