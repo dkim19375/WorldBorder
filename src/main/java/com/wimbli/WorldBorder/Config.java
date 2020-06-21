@@ -38,20 +38,21 @@ public class Config {
     private static int timerTicks = 4;
     private static boolean whooshEffect = false;
     private static boolean portalRedirection = true;
-    private static boolean dynmapEnable = false;
+    private static boolean dynmapEnable = true;
     private static String dynmapMessage;
     private static int dynmapPriority = 0;
     private static boolean dynmapHideByDefault = false;
     private static int remountDelayTicks = 0;
     private static boolean killPlayer = false;
     private static boolean denyEnderpearl = false;
-    private static int fillAutosaveFrequency = 45;
+    private static int fillAutosaveFrequency = 30;
     private static int fillMemoryTolerance = 500;
     private static boolean preventBlockPlace = false;
+    private static boolean preventMobSpawn = false;
 
     // for monitoring plugin efficiency
-//	public static long timeUsed = 0;
-    private static boolean preventMobSpawn = false;
+    //	public static long timeUsed = 0;
+
 
     public static long Now() {
         return System.currentTimeMillis();
