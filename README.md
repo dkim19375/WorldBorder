@@ -21,4 +21,5 @@ If a player crosses a border while in a vehicle, the momentum of the vehicle is 
 When a player is moved back inside a border, they will be moved to a safe vertical location if needed.
 Borders for specific worlds can be set to wrap around instead of just knocking back players who cross the border, instead sending them to the opposite edge of the border.
 
-<a href="https://www.spigotmc.org/resources/worldborder.60905/">More info is available on the Spigot Resource page for this plugin.</a>
+
+<a href="https://www.spigotmc.org/resources/worldborder.60905/">Original Author/Developer</a>
