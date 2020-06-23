@@ -518,7 +518,7 @@ public class Config {
         knockBack = cfg.getDouble("knock-back-dist", 3.0);
         timerTicks = cfg.getInt("timer-delay-ticks", 5);
         remountDelayTicks = cfg.getInt("remount-delay-ticks", 0);
-        dynmapEnable = cfg.getBoolean("dynmap-border-enabled", false);
+        dynmapEnable = cfg.getBoolean("dynmap-border-enabled", true);
         dynmapMessage = cfg.getString("dynmap-border-message", "The border of the world.");
         dynmapHideByDefault = cfg.getBoolean("dynmap-border-hideByDefault", false);
         dynmapPriority = cfg.getInt("dynmap-border-priority", 0);
