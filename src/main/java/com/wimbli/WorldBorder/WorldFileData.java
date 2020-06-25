@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
@@ -155,44 +155,44 @@ public class WorldFileData {
             data.add(Boolean.FALSE);
         }
 
-        for (int i = 0; i < regionFiles.length; i++) {
-            CoordXZ coord = regionFileCoordinates(i);
-            // is this region file the one we're looking for?
-            if (!coord.equals(region))
-                continue;
-
-            try {
-                RandomAccessFile regionData = new RandomAccessFile(this.regionFile(i), "r");
-
-                // Use of ByteBuffer+IntBuffer for reading file headers to improve performance, as suggested by aikar, reference:
-                // https://github.com/PaperMC/Paper/blob/b62dfa0bf95ac27ba0fbb3fae18c064e4bb61d50/Spigot-Server-Patches/0086-Reduce-IO-ops-opening-a-new-region-file.patch
-                ByteBuffer header = ByteBuffer.allocate(8192);
-                while (header.hasRemaining()) {
-                    if (regionData.getChannel().read(header) == -1)
-                        throw new EOFException();
-                }
-                header.clear();
-                IntBuffer headerAsInts = header.asIntBuffer();
-
-                // first 4096 bytes of region file consists of 4-byte int pointers to chunk data in the file (32*32 chunks = 1024; 1024 chunks * 4 bytes each = 4096)
-                for (int j = 0; j < 1024; j++) {
-                    // if chunk pointer data is 0, chunk doesn't exist yet; otherwise, it does
-                    if (headerAsInts.get() != 0)
-                        data.set(j, true);
-                }
-                // Read timestamps
-                for (int j = 0; j < 1024; j++) {
-                    // if timestamp is zero, it is protochunk (ignore it)
-                    if ((headerAsInts.get() == 0) && data.get(j))
-                        data.set(j, false);
-                }
-                regionData.close();
-            } catch (FileNotFoundException ex) {
-                sendMessage("Error! Could not open region file to find generated chunks: " + this.regionFile(i).getName());
-            } catch (IOException ex) {
-                sendMessage("Error! Could not read region file to find generated chunks: " + this.regionFile(i).getName());
-            }
-        }
+        //for (int i = 0; i < regionFiles.length; i++) {
+        //    CoordXZ coord = regionFileCoordinates(i);
+        //    // is this region file the one we're looking for?
+        //    if (!coord.equals(region))
+        //        continue;
+//
+        //    try {
+        //        RandomAccessFile regionData = new RandomAccessFile(this.regionFile(i), "r");
+//
+        //        // Use of ByteBuffer+IntBuffer for reading file headers to improve performance, as suggested by aikar, reference:
+        //        // https://github.com/PaperMC/Paper/blob/b62dfa0bf95ac27ba0fbb3fae18c064e4bb61d50/Spigot-Server-Patches/0086-Reduce-IO-ops-opening-a-new-region-file.patch
+        //        ByteBuffer header = ByteBuffer.allocate(8192);
+        //        while (header.hasRemaining()) {
+        //            if (regionData.getChannel().read(header) == -1)
+        //                throw new EOFException();
+        //        }
+        //        header.clear();
+        //        IntBuffer headerAsInts = header.asIntBuffer();
+//
+        //        // first 4096 bytes of region file consists of 4-byte int pointers to chunk data in the file (32*32 chunks = 1024; 1024 chunks * 4 bytes each = 4096)
+        //        for (int j = 0; j < 1024; j++) {
+        //            // if chunk pointer data is 0, chunk doesn't exist yet; otherwise, it does
+        //            if (headerAsInts.get() != 0)
+        //                data.set(j, true);
+        //        }
+        //        // Read timestamps
+        //        for (int j = 0; j < 1024; j++) {
+        //            // if timestamp is zero, it is protochunk (ignore it)
+        //            if ((headerAsInts.get() == 0) && data.get(j))
+        //                data.set(j, false);
+        //        }
+        //        regionData.close();
+        //    } catch (FileNotFoundException ex) {
+        //        sendMessage("Error! Could not open region file to find generated chunks: " + this.regionFile(i).getName());
+        //    } catch (IOException ex) {
+        //        sendMessage("Error! Could not read region file to find generated chunks: " + this.regionFile(i).getName());
+        //    }
+        //}
         regionChunkExistence.put(region, data);
 //		testImage(region, data);
         return data;
