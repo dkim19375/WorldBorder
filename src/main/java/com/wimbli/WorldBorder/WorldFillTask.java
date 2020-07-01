@@ -106,7 +106,7 @@ public class WorldFillTask implements Runnable {
 
         int chunkWidthX = (int) Math.ceil((double) ((border.getRadiusX() + 16) * 2) / 16);
         int chunkWidthZ = (int) Math.ceil((double) ((border.getRadiusZ() + 16) * 2) / 16);
-        int biggerWidth = (chunkWidthX > chunkWidthZ) ? chunkWidthX : chunkWidthZ; //We need to calculate the reportTarget with the bigger width, since the spiral will only stop if it has a size of biggerWidth x biggerWidth
+        int biggerWidth = Math.max(chunkWidthX, chunkWidthZ); //We need to calculate the reportTarget with the bigger width, since the spiral will only stop if it has a size of biggerWidth x biggerWidth
         this.reportTarget = (biggerWidth * biggerWidth) + biggerWidth + 1;
 
         //This would be another way to calculate reportTarget, it assumes that we don't need time to check if the chunk is outside and then skip it (it calculates the area of the rectangle/ellipse)
@@ -208,7 +208,8 @@ public class WorldFillTask implements Runnable {
         int chunksToProcess = chunksPerRun;
         if (chunksProcessedLastTick > 0 || pendingChunks.size() > 0) {
             // Note we generally queue 3 chunks, so real numbers are 1/3 of chunksProcessedLastTick and pendingchunks.size
-            int chunksExpectedToGetProcessed = (chunksProcessedLastTick - pendingChunks.size()) / 3 + 3;
+            // Trying 4 chunks
+            int chunksExpectedToGetProcessed = (chunksProcessedLastTick - pendingChunks.size()) / 4 + 4;
             if (chunksExpectedToGetProcessed < chunksToProcess)
                 chunksToProcess = chunksExpectedToGetProcessed;
         }
@@ -560,7 +561,7 @@ public class WorldFillTask implements Runnable {
 
         @Override
         public boolean equals(Object other) {
-            if (other == null || !(other instanceof UnloadDependency))
+            if (!(other instanceof UnloadDependency))
                 return false;
 
             return this.neededX == ((UnloadDependency) other).neededX
