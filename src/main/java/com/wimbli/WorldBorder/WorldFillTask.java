@@ -209,7 +209,7 @@ public class WorldFillTask implements Runnable {
         if (chunksProcessedLastTick > 0 || pendingChunks.size() > 0) {
             // Note we generally queue 3 chunks, so real numbers are 1/3 of chunksProcessedLastTick and pendingchunks.size
             // Trying 4 chunks
-            int chunksExpectedToGetProcessed = (chunksProcessedLastTick - pendingChunks.size()) / 4 + 4;
+            int chunksExpectedToGetProcessed = (chunksProcessedLastTick - pendingChunks.size()) / 3 + 3;
             if (chunksExpectedToGetProcessed < chunksToProcess)
                 chunksToProcess = chunksExpectedToGetProcessed;
         }
@@ -542,8 +542,6 @@ public class WorldFillTask implements Runnable {
                 // toggle "force loaded" flag on for chunk to prevent it from being unloaded while we need it
                 world.setChunkForceLoaded(x, z, true);
 
-                // alternatively for 1.14.4+
-                //world.addPluginChunkTicket(x, z, pluginInstance);
             }
         });
     }

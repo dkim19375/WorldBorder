@@ -109,7 +109,7 @@ public class BorderData {
             safeOpenBlocks.add(Material.OAK_WALL_SIGN);
             safeOpenBlocks.add(Material.SPRUCE_SIGN);
             safeOpenBlocks.add(Material.SPRUCE_WALL_SIGN);
-        } catch (NoSuchFieldError ex) {
+        } catch (NoSuchFieldError ignored) {
         }
     }
 
@@ -390,10 +390,10 @@ public class BorderData {
             return safe;
 
         Material below = world.getBlockAt(X, Y - 1, Z).getType();
-        return (safe
-                && (!safeOpenBlocks.contains(below) || below == Material.WATER)    // below target block not open/breathable (so presumably solid), or is water
-                && !painfulBlocks.contains(below)                                    // below target block not painful
-        );
+        // below target block not open/breathable (so presumably solid), or is water
+        // below target block not painful
+        // below target block not painful
+        return (!safeOpenBlocks.contains(below) || below == Material.WATER) && !painfulBlocks.contains(below);
     }
 
     // find closest safe Y position from the starting position

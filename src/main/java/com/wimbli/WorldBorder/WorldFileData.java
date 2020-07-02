@@ -3,13 +3,8 @@ package com.wimbli.WorldBorder;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
-import java.util.List;
 import java.util.*;
 
 // image output stuff, for debugging method at bottom of this file
@@ -157,7 +152,6 @@ public class WorldFileData {
         }
 
         regionChunkExistence.put(region, data);
-        testImage(region, data);
         return data;
     }
 
@@ -166,33 +160,6 @@ public class WorldFileData {
         Config.log("[WorldData] " + text);
         if (notifyPlayer != null && notifyPlayer.isOnline())
             notifyPlayer.sendMessage("[WorldData] " + text);
-    }
-
-    // crude chunk map PNG image output, for debugging
-    private void testImage(CoordXZ region, List<Boolean> data) {
-        int width = 32;
-        int height = 32;
-        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = bi.createGraphics();
-        int current = 0;
-        g2.setColor(Color.BLACK);
-
-        for (int x = 0; x < 32; ++x) {
-            for (int z = 0; z < 32; ++z) {
-                if (data.get(current))
-                    g2.fillRect(x, z, x + 1, z + 1);
-                current++;
-            }
-        }
-
-        File f = new File("region_" + region.x + "_" + region.z + "_.png");
-        Config.log(f.getAbsolutePath());
-        try {
-            // png is an image format (like gif or jpg)
-            ImageIO.write(bi, "png", f);
-        } catch (IOException ex) {
-            Config.log("[SEVERE]" + ex.getLocalizedMessage());
-        }
     }
 
     // file filter used for region files
