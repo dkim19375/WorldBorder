@@ -208,7 +208,6 @@ public class WorldFillTask implements Runnable {
         int chunksToProcess = chunksPerRun;
         if (chunksProcessedLastTick > 0 || pendingChunks.size() > 0) {
             // Note we generally queue 3 chunks, so real numbers are 1/3 of chunksProcessedLastTick and pendingchunks.size
-            // Trying 4 chunks
             int chunksExpectedToGetProcessed = (chunksProcessedLastTick - pendingChunks.size()) / 3 + 3;
             if (chunksExpectedToGetProcessed < chunksToProcess)
                 chunksToProcess = chunksExpectedToGetProcessed;
@@ -450,7 +449,7 @@ public class WorldFillTask implements Runnable {
         if (notifyPlayer != null)
             notifyPlayer.sendMessage("[Fill] " + text);
 
-        if (availMem < 200) {    // running low on memory, auto-pause
+        if (availMem < 400) {    // running low on memory, auto-pause
             pausedForMemory = true;
             Config.StoreFillTask();
             text = "Available memory is very low, task is pausing. A cleanup will be attempted now, and the task will automatically continue if/when sufficient memory is freed up.\n Alternatively, if you restart the server, this task will automatically continue once the server is back up.";
@@ -541,7 +540,7 @@ public class WorldFillTask implements Runnable {
             if (chunk != null) {
                 // toggle "force loaded" flag on for chunk to prevent it from being unloaded while we need it
                 world.setChunkForceLoaded(x, z, true);
-
+//
             }
         });
     }

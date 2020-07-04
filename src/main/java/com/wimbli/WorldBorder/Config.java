@@ -38,7 +38,7 @@ public class Config {
     private static int timerTicks = 4;
     private static boolean whooshEffect = false;
     private static boolean portalRedirection = true;
-    private static boolean dynmapEnable = true;
+    private static boolean dynmapEnable = false;
     private static String dynmapMessage;
     private static int dynmapPriority = 0;
     private static boolean dynmapHideByDefault = false;

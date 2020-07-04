@@ -119,7 +119,10 @@ public class BorderData {
         painfulBlocks.add(Material.CACTUS);
         painfulBlocks.add(Material.END_PORTAL);
         painfulBlocks.add(Material.MAGMA_BLOCK);
-        painfulBlocks.add(Material.FIRE);
+        painfulBlocks.add(Material.CAMPFIRE);
+        painfulBlocks.add(Material.POTTED_CACTUS);
+
+
     }
 
     // the main data interacted with
