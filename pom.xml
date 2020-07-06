@@ -44,12 +44,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.papermc</groupId>
-            <artifactId>paperlib</artifactId>
-            <version>1.0.4</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.16.1-R0.1-SNAPSHOT</version>

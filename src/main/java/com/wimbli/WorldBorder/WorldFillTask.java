@@ -161,7 +161,7 @@ public class WorldFillTask implements Runnable {
         Set<CoordXZ> chunksToUnload = new HashSet<>();
         for (CompletableFuture<Void> cf : pendingChunks.keySet()) {
             if (cf.isDone()) {
-                ++chunksProcessedLastTick;
+                chunksProcessedLastTick++;
                 // If cf.get() returned the chunk reliably, pendingChunks could
                 // be a set and we wouldn't have to map CFs to coords ...
                 CoordXZ xz = pendingChunks.get(cf);
@@ -224,6 +224,7 @@ public class WorldFillTask implements Runnable {
 
             // if this iteration has been running for 45ms (almost 1 tick) or more, stop to take a breather
             if (now > loopStartTime + 45) {
+                System.out.println("PAUSED FOR DEBUG");
                 readyToGo = true;
                 return;
             }
@@ -251,7 +252,7 @@ public class WorldFillTask implements Runnable {
                 }
             }
 
-           // pendingChunks.put(getPaperLibChunk(world, x, z, true), new CoordXZ(x, z));
+            // pendingChunks.put(getPaperLibChunk(world, x, z, true), new CoordXZ(x, z));
 
             // There need to be enough nearby chunks loaded to make the server populate a chunk with trees, snow, etc.
             // So, we keep the last few chunks loaded, and need to also temporarily load an extra inside chunk (neighbor closest to center of map)

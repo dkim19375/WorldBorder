@@ -50,7 +50,7 @@ public class CmdCommands extends WBCmd {
             // send page footer, if relevant; manual spacing to get right side lined up near edge is crude, but sufficient
             String footer = C_HEAD + " (Page " + page + "/" + pageCount + ")              " + cmd(sender);
             if (page < pageCount)
-                sender.sendMessage(footer + Integer.toString(page + 1) + C_DESC + " - view next page of commands.");
+                sender.sendMessage(footer + (page + 1) + C_DESC + " - view next page of commands.");
             else if (page > 1)
                 sender.sendMessage(footer + C_DESC + "- view first page of commands.");
         } else {
