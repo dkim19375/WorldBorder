@@ -2,7 +2,9 @@ package com.wimbli.WorldBorder;
 
 import com.wimbli.WorldBorder.Events.WorldBorderFillFinishedEvent;
 import com.wimbli.WorldBorder.Events.WorldBorderFillStartEvent;
+import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -156,7 +158,7 @@ public class WorldFillTask implements Runnable {
         // First, Check which chunk generations have been finished.
         // Mark those chunks as existing and unloadable, and remove
         // them from the pending set.
-        int chunksProcessedLastTick = 0;
+        int chunksProcessedLastTick = 1;
         Map<CompletableFuture<Void>, CoordXZ> newPendingChunks = new HashMap<>();
         Set<CoordXZ> chunksToUnload = new HashSet<>();
         for (CompletableFuture<Void> cf : pendingChunks.keySet()) {
@@ -252,18 +254,18 @@ public class WorldFillTask implements Runnable {
                 }
             }
 
-            // pendingChunks.put(getPaperLibChunk(world, x, z, true), new CoordXZ(x, z));
+            pendingChunks.put(getPaperLibChunk(world, x, z, true), new CoordXZ(x, z));
 
             // There need to be enough nearby chunks loaded to make the server populate a chunk with trees, snow, etc.
             // So, we keep the last few chunks loaded, and need to also temporarily load an extra inside chunk (neighbor closest to center of map)
             int popX = !isZLeg ? x : (x + (isNeg ? -1 : 1));
             int popZ = isZLeg ? z : (z + (!isNeg ? -1 : 1));
 
-            // pendingChunks.put(getPaperLibChunk(world, popX, popZ, false), new CoordXZ(popX, popZ));
+            pendingChunks.put(getPaperLibChunk(world, popX, popZ, false), new CoordXZ(popX, popZ));
             preventUnload.add(new UnloadDependency(popX, popZ, x, z));
 
             // make sure the previous chunk in our spiral is loaded as well (might have already existed and been skipped over)
-            //pendingChunks.put(getPaperLibChunk(world, lastChunk.x, lastChunk.z, false), new CoordXZ(lastChunk.x, lastChunk.z)); // <-- new CoordXZ as lastChunk isn't immutable
+            pendingChunks.put(getPaperLibChunk(world, lastChunk.x, lastChunk.z, false), new CoordXZ(lastChunk.x, lastChunk.z)); // <-- new CoordXZ as lastChunk isn't immutable
             preventUnload.add(new UnloadDependency(lastChunk.x, lastChunk.z, x, z));
 
             // move on to next chunk
@@ -373,6 +375,7 @@ public class WorldFillTask implements Runnable {
             Set<UnloadDependency> tempPreventUnload = preventUnload;
             preventUnload = null;
             for (UnloadDependency entry : tempPreventUnload) {
+                world.unloadChunkRequest(lastChunk.x, lastChunk.z);
                 world.setChunkForceLoaded(entry.neededX, entry.neededZ, false);
                 world.unloadChunkRequest(entry.neededX, entry.neededZ);
             }
@@ -533,16 +536,16 @@ public class WorldFillTask implements Runnable {
         return reportTarget;
     }
 
-    //private CompletableFuture<Void> getPaperLibChunk(World world, int x, int z, boolean gen) {
-    //    return PaperLib.getChunkAtAsync(world, x, z, gen).thenAccept((Chunk chunk) ->
-    //    {
-    //        if (chunk != null) {
-    //            // toggle "force loaded" flag on for chunk to prevent it from being unloaded while we need it
-    //            world.setChunkForceLoaded(x, z, true);
+    private CompletableFuture<Void> getPaperLibChunk(World world, int x, int z, boolean gen) {
+        return PaperLib.getChunkAtAsync(world, x, z, gen).thenAccept((Chunk chunk) ->
+        {
+            if (chunk != null) {
+                // toggle "force loaded" flag on for chunk to prevent it from being unloaded while we need it
+                world.setChunkForceLoaded(x, z, true);
 //
-    //        }
-    //    });
-    //}
+            }
+        });
+    }
 
     private class UnloadDependency {
         int neededX, neededZ;
