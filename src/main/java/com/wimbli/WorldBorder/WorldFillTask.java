@@ -78,21 +78,21 @@ public class WorldFillTask implements Runnable {
                 sendMessage("You must specify a world!");
             else
                 sendMessage("World \"" + worldName + "\" not found!");
-            this.stop();
+            this.stop(true);
             return;
         }
 
         this.border = (Config.Border(worldName) == null) ? null : Config.Border(worldName).copy();
         if (this.border == null) {
             sendMessage("No border found for world \"" + worldName + "\"!");
-            this.stop();
+            this.stop(false);
             return;
         }
 
         // load up a new WorldFileData for the world in question, used to scan region files for which chunks are already fully generated and such
         worldData = WorldFileData.create(world, notifyPlayer);
         if (worldData == null) {
-            this.stop();
+            this.stop(false);
             return;
         }
 
@@ -123,7 +123,7 @@ public class WorldFillTask implements Runnable {
     }
 
     public void setTaskID(int ID) {
-        if (ID == -1) this.stop();
+        if (ID == -1) this.stop(false);
         this.taskID = ID;
     }
 
@@ -226,7 +226,7 @@ public class WorldFillTask implements Runnable {
 
             // if this iteration has been running for 45ms (almost 1 tick) or more, stop to take a breather
             if (now > loopStartTime + 45) {
-                System.out.println("PAUSED FOR DEBUG");
+                //System.out.println("PAUSED FOR DEBUG");
                 readyToGo = true;
                 return;
             }
@@ -350,16 +350,17 @@ public class WorldFillTask implements Runnable {
         world.save();
         Bukkit.getServer().getPluginManager().callEvent(new WorldBorderFillFinishedEvent(world, reportTotal));
         sendMessage("task successfully completed for world \"" + refWorld() + "\"!");
-        this.stop();
+        this.stop(false);
     }
 
     // for cancelling prematurely
-    public void cancel() {
-        this.stop();
+    public void cancel(boolean Save) {
+        this.stop(Save);
     }
 
     // we're done, whether finished or cancelled
-    private void stop() {
+    private void stop(boolean Save) {
+        if (!Save) Config.UnStoreFillTask();
         if (server == null)
             return;
 
@@ -403,8 +404,7 @@ public class WorldFillTask implements Runnable {
         if (this.paused) {
             Config.StoreFillTask();
             reportProgress();
-        } else
-            Config.UnStoreFillTask();
+        }
     }
 
     public boolean isPaused() {
@@ -439,6 +439,7 @@ public class WorldFillTask implements Runnable {
             lastAutosave = lastReport;
             sendMessage("Saving the world to disk, just to be on the safe side.");
             world.save();
+            Config.StoreFillTask();
         }
     }
 
@@ -471,6 +472,10 @@ public class WorldFillTask implements Runnable {
         this.length = length;
         this.reportTotal = totalDone;
         this.continueNotice = true;
+        this.refX = x;
+        this.refZ = z;
+        this.refLength = length;
+        this.refTotal = totalDone;
     }
 
     public int refX() {

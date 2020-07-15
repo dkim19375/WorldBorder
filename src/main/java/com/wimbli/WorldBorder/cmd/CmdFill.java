@@ -48,7 +48,7 @@ public class CmdFill extends WBCmd {
                     return;
                 sender.sendMessage(C_HEAD + "Cancelling the world map generation task.");
                 fillDefaults();
-                Config.StopFillTask();
+                Config.StopFillTask(true);
                 return;
             } else if (check.equals("pause")) {
                 if (!makeSureFillIsRunning(sender))
