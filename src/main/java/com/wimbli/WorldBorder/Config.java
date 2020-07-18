@@ -590,8 +590,8 @@ public class Config {
         if (storedFillTask != null) {
             String worldName = storedFillTask.getString("world");
             int fillDistance = storedFillTask.getInt("fillDistance", 208);
-            int chunksPerRun = storedFillTask.getInt("chunksPerRun", 2);
-            int tickFrequency = storedFillTask.getInt("tickFrequency", 5);
+            int chunksPerRun = storedFillTask.getInt("chunksPerRun", 1);
+            int tickFrequency = storedFillTask.getInt("tickFrequency", 1);
             int fillX = storedFillTask.getInt("x", 0);
             int fillZ = storedFillTask.getInt("z", 0);
             int fillLength = storedFillTask.getInt("length", 0);

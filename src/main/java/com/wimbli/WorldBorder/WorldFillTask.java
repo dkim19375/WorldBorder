@@ -194,7 +194,7 @@ public class WorldFillTask implements Runnable {
         for (CoordXZ unload : chunksToUnload) {
             if (!chunkOnUnloadPreventionList(unload.x, unload.z)) {
                 world.setChunkForceLoaded(unload.x, unload.z, false);
-                world.unloadChunkRequest(unload.x, unload.z);
+                //world.unloadChunkRequest(unload.x, unload.z);
             }
         }
 
