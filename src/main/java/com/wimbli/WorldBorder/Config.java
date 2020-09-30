@@ -34,7 +34,7 @@ public class Config {
     private static String messageFmt;    // message with color code formatting ("&" changed to funky sort-of-double-dollar-sign for legitimate color/formatting codes)
     private static String messageClean;    // message cleaned of formatting codes
     private static boolean DEBUG = false;
-    private static double knockBack = 3.0;
+    private static double knockBack = 1.0;
     private static int timerTicks = 4;
     private static boolean whooshEffect = false;
     private static boolean portalRedirection = true;
@@ -667,5 +667,8 @@ public class Config {
 
         if (logIt)
             logConfig("Configuration saved.");
+    }
+
+    public static void setBorder(String worldName, double radiusX, double radiusZ, double x, double z) {
     }
 }

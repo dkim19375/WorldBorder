@@ -34,8 +34,8 @@ public class CmdRadius extends WBCmd {
 
         double x = border.getX();
         double z = border.getZ();
-        int radiusX;
-        int radiusZ;
+        double radiusX;
+        double radiusZ;
         try {
             if (params.get(0).startsWith("+")) {
                 // Add to the current radius
