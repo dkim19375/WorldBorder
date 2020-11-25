@@ -49,6 +49,7 @@ public class Config {
     private static int fillMemoryTolerance = 500;
     private static boolean preventBlockPlace = false;
     private static boolean preventMobSpawn = false;
+    private static boolean noPlayersToggle = false;
 
     // for monitoring plugin efficiency
     //	public static long timeUsed = 0;
@@ -289,6 +290,8 @@ public class Config {
     public static double KnockBack() {
         return knockBack;
     }
+
+    public static boolean NoPlayersToggle() { return noPlayersToggle; }
 
     public static void setTimerTicks(int ticks) {
         timerTicks = ticks;
@@ -531,6 +534,7 @@ public class Config {
         fillMemoryTolerance = cfg.getInt("fill-memory-tolerance", 500);
         preventBlockPlace = cfg.getBoolean("prevent-block-place");
         preventMobSpawn = cfg.getBoolean("prevent-mob-spawn");
+        noPlayersToggle = cfg.getBoolean("no-players-toggle");
 
         StartBorderTimer();
 
@@ -634,6 +638,7 @@ public class Config {
         cfg.set("fill-memory-tolerance", fillMemoryTolerance);
         cfg.set("prevent-block-place", preventBlockPlace);
         cfg.set("prevent-mob-spawn", preventMobSpawn);
+        cfg.set("no-players-toggle", noPlayersToggle);
 
         cfg.set("worlds", null);
         for (Entry<String, BorderData> stringBorderDataEntry : borders.entrySet()) {

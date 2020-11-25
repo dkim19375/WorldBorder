@@ -1,11 +1,15 @@
 package com.wimbli.WorldBorder;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
@@ -83,4 +87,23 @@ public class WBListener implements Listener {
         chunk.setForceLoaded(false);
     }
 
+    // If player joins and noPlayersToggle is on automatically pause any existing fill task
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        if (!Config.NoPlayersToggle() || Config.fillTask == null || Config.fillTask.isPaused())
+            return;
+
+        Config.fillTask.pause(true);
+        Config.log("Detected player online. World map generation task automatically paused.");
+    }
+
+    // If no players online and noPlayersToggle is on automatically unpause any existing fill task
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        if (!Config.NoPlayersToggle() || Config.fillTask == null || Bukkit.getOnlinePlayers().size() > 1 || !Config.fillTask.isPaused())
+            return;
+
+        Config.fillTask.pause(false);
+        Config.log("No players online. World map generation task automatically unpaused.");
+    }
 }
