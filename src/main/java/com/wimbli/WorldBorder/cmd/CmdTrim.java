@@ -29,7 +29,7 @@ public class CmdTrim extends WBCmd {
         maxParams = 2;
 
         addCmdExample(nameEmphasizedW() + "[freq] [pad] - trim world outside of border.");
-        helpText = "This command will remove chunks which are outside the world's border. [freq] is the frequency " +
+        helpText = "This command will remove chunks which are outside the world's border (even modified chunks!). [freq] is the frequency " +
                 "of chunks per second that will be checked (default 5000). [pad] is the number of blocks padding kept " +
                 "beyond the border itself (default 208, to cover player visual range).";
     }
