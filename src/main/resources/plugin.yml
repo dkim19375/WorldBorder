@@ -39,6 +39,7 @@ commands:
       /<command> wshape [world] <round|square|default> - same as above values.
       /<command> delay <amount> - time between border checks.
       /<command> dynmap <on/off> - turn DynMap border display on or off.
+      /<command> dynmaplabel <text> - DynMap border layer label will show this.
       /<command> dynmapmsg <text> - DynMap border labels will show this.
       /<command> remount <amount> - delay before remounting after knockback.
       /<command> fillautosave <seconds> - world save interval for Fill process.
