@@ -7,7 +7,6 @@ main: com.wimbli.WorldBorder.WorldBorder
 softdepend:
   - dynmap
   - Multiverse-Core
-  - Hyperverse
 commands:
   wborder:
     description: Primary command for WorldBorder.
