@@ -39,6 +39,7 @@ public class Config {
     private static boolean whooshEffect = false;
     private static boolean portalRedirection = true;
     private static boolean dynmapEnable = false;
+    private static String dynmapLayerLabel;
     private static String dynmapMessage;
     private static int dynmapPriority = 0;
     private static boolean dynmapHideByDefault = false;
@@ -344,6 +345,17 @@ public class Config {
         return dynmapEnable;
     }
 
+    public static void setDynmapLayerLabel(String label) {
+        dynmapLayerLabel = label;
+        log("DynMap layer label is now set to: " + label);
+        save(true);
+        DynMapFeatures.showAllBorders();
+    }
+
+    public static String DynmapLayerLabel() {
+        return dynmapLayerLabel;
+    }
+
     public static void setDynmapMessage(String msg) {
         dynmapMessage = msg;
         log("DynMap border label is now set to: " + msg);
@@ -523,6 +535,7 @@ public class Config {
         timerTicks = cfg.getInt("timer-delay-ticks", 5);
         remountDelayTicks = cfg.getInt("remount-delay-ticks", 0);
         dynmapEnable = cfg.getBoolean("dynmap-border-enabled", true);
+        dynmapLayerLabel = cfg.getString("dynmap-border-layer-label", "WorldBorder");
         dynmapMessage = cfg.getString("dynmap-border-message", "The border of the world.");
         dynmapHideByDefault = cfg.getBoolean("dynmap-border-hideByDefault", false);
         dynmapPriority = cfg.getInt("dynmap-border-priority", 0);
@@ -628,6 +641,7 @@ public class Config {
         cfg.set("timer-delay-ticks", timerTicks);
         cfg.set("remount-delay-ticks", remountDelayTicks);
         cfg.set("dynmap-border-enabled", dynmapEnable);
+        cfg.set("dynmap-border-layer-label", dynmapLayerLabel);
         cfg.set("dynmap-border-message", dynmapMessage);
         cfg.set("dynmap-border-hideByDefault", dynmapHideByDefault);
         cfg.set("dynmap-border-priority", dynmapPriority);

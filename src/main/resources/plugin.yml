@@ -1,7 +1,7 @@
 name: WorldBorder
 authors: [Brettflan, PryPurity]
 description: Efficient, feature-rich plugin for limiting the size of your worlds.
-version: 2.1.0
+version: 2.1.1
 api-version: 1.16
 main: com.wimbli.WorldBorder.WorldBorder
 softdepend:
@@ -39,6 +39,7 @@ commands:
       /<command> wshape [world] <round|square|default> - same as above values.
       /<command> delay <amount> - time between border checks.
       /<command> dynmap <on/off> - turn DynMap border display on or off.
+      /<command> dynmaplabel <text> - DynMap border layer label will show this.
       /<command> dynmapmsg <text> - DynMap border labels will show this.
       /<command> remount <amount> - delay before remounting after knockback.
       /<command> fillautosave <seconds> - world save interval for Fill process.
