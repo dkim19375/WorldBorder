@@ -16,14 +16,14 @@ import java.util.Map.Entry;
 
 
 public class DynMapFeatures {
+    private static final int lineWeight = 3;
+    private static final double lineOpacity = 1.0;
+    private static final int lineColor = 0xFF0000;
+    private static final Map<String, CircleMarker> roundBorders = new HashMap<String, CircleMarker>();
+    private static final Map<String, AreaMarker> squareBorders = new HashMap<String, AreaMarker>();
     private static DynmapAPI api;
     private static MarkerAPI markApi;
     private static MarkerSet markSet;
-    private static int lineWeight = 3;
-    private static double lineOpacity = 1.0;
-    private static int lineColor = 0xFF0000;
-    private static Map<String, CircleMarker> roundBorders = new HashMap<String, CircleMarker>();
-    private static Map<String, AreaMarker> squareBorders = new HashMap<String, AreaMarker>();
 
     // Whether re-rendering functionality is available
     public static boolean renderEnabled() {

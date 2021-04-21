@@ -10,7 +10,7 @@ import org.bukkit.event.HandlerList;
  */
 public class WorldBorderFillStartEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
-    private WorldFillTask fillTask;
+    private final WorldFillTask fillTask;
 
     public WorldBorderFillStartEvent(WorldFillTask worldFillTask) {
         this.fillTask = worldFillTask;

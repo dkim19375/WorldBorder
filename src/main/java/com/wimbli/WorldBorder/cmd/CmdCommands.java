@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class CmdCommands extends WBCmd {
-    private static int pageSize = 8;  // examples to list per page; 10 lines available, 1 for header, 1 for footer
+    private static final int pageSize = 8;  // examples to list per page; 10 lines available, 1 for header, 1 for footer
 
     public CmdCommands() {
         name = "commands";

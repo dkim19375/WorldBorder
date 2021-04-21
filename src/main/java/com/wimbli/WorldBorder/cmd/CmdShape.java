@@ -14,7 +14,7 @@ public class CmdShape extends WBCmd {
 
         addCmdExample(nameEmphasized() + "<round|square> - set the default border shape.");
         addCmdExample(nameEmphasized() + "<elliptic|rectangular> - same as above.");
-        helpText = "Default value: round/elliptic. The default border shape will be used on all worlds which don't " +
+        helpText = "Default value: square/rectangular. The default border shape will be used on all worlds which don't " +
                 "have an individual shape set using the " + commandEmphasized("wshape") + C_DESC + "command. Elliptic " +
                 "and round work the same, as rectangular and square do. The difference is down to whether the X and Z " +
                 "radius are the same.";

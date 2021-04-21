@@ -15,7 +15,7 @@ import java.util.*;
 
 public class BorderCheckTask implements Runnable {
     // track players who are being handled (moved back inside the border) already; needed since Bukkit is sometimes sending teleport events with the old (now incorrect) location still indicated, which can lead to a loop when we then teleport them thinking they're outside the border, triggering event again, etc.
-    private static Set<String> handlingPlayers = Collections.synchronizedSet(new LinkedHashSet<String>());
+    private static final Set<String> handlingPlayers = Collections.synchronizedSet(new LinkedHashSet<String>());
 
     // set targetLoc only if not current player location; set returnLocationOnly to true to have new Location returned if they need to be moved to one, instead of directly handling it
     public static Location checkPlayer(Player player, Location targetLoc, boolean returnLocationOnly, boolean notify) {
@@ -61,6 +61,7 @@ public class BorderCheckTask implements Runnable {
 
                 ride.setVelocity(new Vector(0, 0, 0));
                 ride.teleport(rideLoc, TeleportCause.PLUGIN);
+
 
                 if (Config.RemountTicks() > 0) {
                     setPassengerDelayed(ride, player, player.getName(), Config.RemountTicks());

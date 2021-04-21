@@ -24,7 +24,6 @@ public class BorderData {
         safeOpenBlocks.add(Material.JUNGLE_SAPLING);
         safeOpenBlocks.add(Material.ACACIA_SAPLING);
         safeOpenBlocks.add(Material.DARK_OAK_SAPLING);
-        safeOpenBlocks.add(Material.WATER);
         safeOpenBlocks.add(Material.RAIL);
         safeOpenBlocks.add(Material.POWERED_RAIL);
         safeOpenBlocks.add(Material.DETECTOR_RAIL);

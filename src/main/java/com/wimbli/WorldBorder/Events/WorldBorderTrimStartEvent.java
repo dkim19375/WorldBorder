@@ -10,7 +10,7 @@ import org.bukkit.event.HandlerList;
  */
 public class WorldBorderTrimStartEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
-    private WorldTrimTask trimTask;
+    private final WorldTrimTask trimTask;
 
     public WorldBorderTrimStartEvent(WorldTrimTask trimTask) {
         this.trimTask = trimTask;

@@ -9,8 +9,8 @@ import org.bukkit.event.HandlerList;
  */
 public class WorldBorderTrimFinishedEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
-    private World world;
-    private long totalChunks;
+    private final World world;
+    private final long totalChunks;
 
     public WorldBorderTrimFinishedEvent(World world, long totalChunks) {
         this.world = world;

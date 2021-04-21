@@ -31,6 +31,10 @@ public abstract class WBCmd {
      * Helper variables and methods
      */
     public final static List<String> cmdExamplesPlayer = new ArrayList<String>(48);   // still, could need to increase later
+    // list of command examples for this command to be displayed as usage reference, separate between players and console
+    // ... these generally should be set indirectly using addCmdExample() within the constructor for each command class
+    public final List<String> cmdExamplePlayer = new ArrayList<String>();
+    public final List<String> cmdExampleConsole = new ArrayList<String>();
     // command name, command permission; normally the same thing
     public String name = "";
     public String permission = null;
@@ -42,10 +46,6 @@ public abstract class WBCmd {
     public int maxParams = 9999;
     // help/explanation text to be shown after command example(s) for this command
     public String helpText = null;
-    // list of command examples for this command to be displayed as usage reference, separate between players and console
-    // ... these generally should be set indirectly using addCmdExample() within the constructor for each command class
-    public List<String> cmdExamplePlayer = new ArrayList<String>();
-    public List<String> cmdExampleConsole = new ArrayList<String>();
 
     /*
      * The guts of the command run in here; needs to be overriden in the subclassed commands

@@ -10,10 +10,10 @@ import java.util.*;
 
 
 public class WBCommand implements CommandExecutor {
+    // ref. list of the commands which can have a world name in front of the command itself (ex. /wb _world_ radius 100)
+    private final Set<String> subCommandsWithWorldNames = new LinkedHashSet<String>();
     // map of all sub-commands with the command name (string) for quick reference
     public Map<String, WBCmd> subCommands = new LinkedHashMap<String, WBCmd>();
-    // ref. list of the commands which can have a world name in front of the command itself (ex. /wb _world_ radius 100)
-    private Set<String> subCommandsWithWorldNames = new LinkedHashSet<String>();
     private boolean wasWorldQuotation = false;
 
 

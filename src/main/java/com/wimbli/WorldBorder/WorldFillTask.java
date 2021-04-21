@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 
 public class WorldFillTask implements Runnable {
+    private final transient CoordXZ lastChunk = new CoordXZ(0, 0);
     // general task-related reference data
     private transient Server server = null;
     private transient World world = null;
@@ -30,7 +31,6 @@ public class WorldFillTask implements Runnable {
     private transient int chunksPerRun = 1;
     private transient boolean continueNotice = false;
     private transient boolean forceLoad = false;
-
     // these are only stored for saving task to config
     private transient int fillDistance = 208;
     private transient int tickFrequency = 1;
@@ -38,7 +38,6 @@ public class WorldFillTask implements Runnable {
     private transient int refZ = 0, lastLegZ = 0;
     private transient int refLength = -1;
     private transient int refTotal = 0, lastLegTotal = 0;
-
     // values for the spiral pattern check which fills out the map to the border
     private transient int x = 0;
     private transient int z = 0;
@@ -47,8 +46,6 @@ public class WorldFillTask implements Runnable {
     private transient int length = -1;
     private transient int current = 0;
     private transient boolean insideBorder = true;
-    private transient CoordXZ lastChunk = new CoordXZ(0, 0);
-
     // for reporting progress back to user occasionally
     private transient long lastReport = Config.Now();
     private transient long lastAutosave = Config.Now();
@@ -462,6 +459,8 @@ public class WorldFillTask implements Runnable {
             // prod Java with a request to go ahead and do GC to clean unloaded chunks from memory; this seems to work wonders almost immediately
             // yes, explicit calls to System.gc() are normally bad, but in this case it otherwise can take a long long long time for Java to recover memory
             System.gc();
+            Runtime.getRuntime().gc();
+            System.runFinalization();
         }
     }
 

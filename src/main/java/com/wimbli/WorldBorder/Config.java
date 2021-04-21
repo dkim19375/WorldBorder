@@ -16,8 +16,11 @@ import java.util.logging.Logger;
 
 
 public class Config {
+    public static final DecimalFormat coord = new DecimalFormat("0.0");
     private static final int currentCfgVersion = 12;
-    public static volatile DecimalFormat coord = new DecimalFormat("0.0");
+    private static final Runtime rt = Runtime.getRuntime();
+    private static final Map<String, BorderData> borders = Collections.synchronizedMap(new LinkedHashMap<String, BorderData>());
+    private static final Set<UUID> bypassPlayers = Collections.synchronizedSet(new LinkedHashSet<UUID>());
     public static volatile WorldFillTask fillTask = null;
     public static volatile WorldTrimTask trimTask = null;
     // private stuff used within this class
@@ -25,11 +28,8 @@ public class Config {
     private static FileConfiguration cfg = null;
     private static Logger wbLog = null;
     private static int borderTask = -1;
-    private static Runtime rt = Runtime.getRuntime();
     // actual configuration values which can be changed
     private static boolean shapeRound = true;
-    private static Map<String, BorderData> borders = Collections.synchronizedMap(new LinkedHashMap<String, BorderData>());
-    private static Set<UUID> bypassPlayers = Collections.synchronizedSet(new LinkedHashSet<UUID>());
     private static String message;        // raw message without color code formatting
     private static String messageFmt;    // message with color code formatting ("&" changed to funky sort-of-double-dollar-sign for legitimate color/formatting codes)
     private static String messageClean;    // message cleaned of formatting codes
@@ -292,7 +292,9 @@ public class Config {
         return knockBack;
     }
 
-    public static boolean NoPlayersToggle() { return noPlayersToggle; }
+    public static boolean NoPlayersToggle() {
+        return noPlayersToggle;
+    }
 
     public static void setTimerTicks(int ticks) {
         timerTicks = ticks;
@@ -562,7 +564,7 @@ public class Config {
             return;
         }
         // if loading older config which didn't support color codes in border message, make sure default red color code is added at start of it
-        else if (cfgVersion < 8 && !(msg.substring(0, 1).equals("&")))
+        else if (cfgVersion < 8 && msg.charAt(0) != '&')
             updateMessage("&c" + msg);
             // otherwise just set border message
         else
