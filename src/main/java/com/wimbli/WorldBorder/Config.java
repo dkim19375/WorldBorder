@@ -14,7 +14,6 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class Config {
     public static final DecimalFormat coord = new DecimalFormat("0.0");
     private static final int currentCfgVersion = 12;
@@ -38,7 +37,7 @@ public class Config {
     private static int timerTicks = 4;
     private static boolean whooshEffect = false;
     private static boolean portalRedirection = true;
-    private static boolean dynmapEnable = false;
+    private static boolean dynmapEnable = true;
     private static String dynmapLayerLabel;
     private static String dynmapMessage;
     private static int dynmapPriority = 0;
@@ -268,6 +267,7 @@ public class Config {
 
     public static void setDenyEnderpearl(boolean enable) {
         denyEnderpearl = enable;
+        log("Direct cancellation of ender pearls thrown past the border " + (enable ? "enabled" : "disabled") + ".");
         log("Direct cancellation of ender pearls thrown past the border " + (enable ? "enabled" : "disabled") + ".");
         save(true);
     }
