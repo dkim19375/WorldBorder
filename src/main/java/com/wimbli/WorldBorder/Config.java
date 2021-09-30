@@ -556,7 +556,7 @@ public class Config {
         borders.clear();
 
         // if empty border message, assume no config
-        if (msg == null || msg.isEmpty()) {    // store defaults
+        if (msg == null) {    // store defaults
             logConfig("Configuration not present, creating new file.");
             msg = "&cYou have reached the edge of this world.";
             updateMessage(msg);
