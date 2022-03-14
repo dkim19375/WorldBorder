@@ -44,8 +44,8 @@ public class WorldBorder extends JavaPlugin {
     public void onDisable() {
         DynMapFeatures.removeAllBorders();
         Config.StopBorderTimer();
-        Config.StoreFillTask();
         Config.StopFillTask(true);
+        Config.StoreFillTask();
     }
 
     // for other plugins to hook into
