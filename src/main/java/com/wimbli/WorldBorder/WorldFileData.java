@@ -1,5 +1,6 @@
 package com.wimbli.WorldBorder;
 
+import io.papermc.lib.PaperLib;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -103,7 +104,10 @@ public class WorldFileData {
         CoordXZ region = new CoordXZ(CoordXZ.chunkToRegion(x), CoordXZ.chunkToRegion(z));
         List<Boolean> regionChunks = this.getRegionData(region);
 //		Bukkit.getLogger().info("x: "+x+"  z: "+z+"  offset: "+coordToRegionOffset(x, z));
-        return regionChunks.get(coordToRegionOffset(x, z));
+        if (regionChunks.get(coordToRegionOffset(x, z))) {
+            return true;
+        }
+        return PaperLib.isChunkGenerated(world, x, z);
     }
 
     // Find out if the chunk at the given coordinates has been fully generated.
